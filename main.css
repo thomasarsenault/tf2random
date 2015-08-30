@@ -1,0 +1,72 @@
+
+#titletext {
+    text-align: center;
+    border-style: solid;
+    border-color: #E82D2D;
+    background-color: #E82D2D;
+    color: #EEEEEE;
+}
+#titletext:hover{
+    border-color: #D12828;
+    background-color: #D12828;
+}
+#pweaponimg{
+    margin-left: 50px;
+}
+#sweaponimg{
+    margin-left: 50px;
+}
+#tweaponimg{
+    margin-left: 50px;
+}
+#qweaponimg{
+    margin-left: 50px;
+}
+#save{
+    float: right;
+    text-align: center;
+    border-style: solid;
+    border-color: #2DE82D;
+    background-color: #2DE82D;
+    border-width: 14px;
+    color: #EEEEEE;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#delete{
+    float: right;
+    text-align: center;
+    border-style: solid;
+    border-color: #E82D2D;
+    background-color: #E82D2D;
+    border-width: 14px;
+    color: #EEEEEE;
+}
+#save:hover{
+    border-color: #28D128;
+    background-color: #28D128;
+}
+#delete:hover{
+    border-color: #D12828;
+    background-color: #D12828;
+}
+#newrandom{
+    border-width: 0px;
+    border-top-width: 10px;
+    border-bottom-width: 15px;
+    border-left-width: 5px;
+    padding-left: 100px;
+    border-color: #E82D2D;
+    border-style: solid;
+    background-color: #E82D2D;
+    color: #EEEEEE;
+}
+body {
+    font-family: Tahoma;
+    background-color: #EEEEEE;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    float: center
+}
