@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+    <title>TF2 Randomizer</title>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body onload="startRandom()">
+<div class="main">
+<h1 id="titletext" onclick="startRandom()" onselectstart="return false">New Random Loadout</h1>
+
+<!--<p id="class"></p></br>-->
+<div id="newrandom">
+    <img id="classimg" src="" width="75" height="75">
+    <img id="pweaponimg" src="">
+    <img id="sweaponimg" src="">
+    <img id="tweaponimg" src="">
+    <img id="qweaponimg" src="">
+<div id="delete" onselectstart="return false"><h3>X</h3></div>
+<div id="save" onselectstart="return false"><h3>Save</h3></div>
+</div>
+</br>
+<!--<p id="pweapon"></p>-->
+<!--<p id="sweapon"></p>-->
+<!--<p id="tweapon"></p>-->
+<!--<p id="qweapon"></p>-->
+</div>
+</div>
+
+<script>
+var tf2SelectedClass = 1;
+var tf2Classes = ["Scout", "Soldier", "Pyro", "Demoman", "Heavy", "Engineer", "Medic", "Sniper", "Spy"];
+var classEmblems = [
+                    "https://wiki.teamfortress.com/w/images/thumb/0/0a/Scout_emblem_RED.png/120px-Scout_emblem_RED.png?t=20130809194644",
+                    "https://wiki.teamfortress.com/w/images/thumb/d/de/Soldier_emblem_RED.png/120px-Soldier_emblem_RED.png?t=20130809194950",
+                    "https://wiki.teamfortress.com/w/images/thumb/b/b1/Pyro_emblem_RED.png/120px-Pyro_emblem_RED.png?t=20130809194527",
+                    "https://wiki.teamfortress.com/w/images/thumb/8/8c/Demoman_emblem_RED.png/120px-Demoman_emblem_RED.png?t=20130809193922",
+                    "https://wiki.teamfortress.com/w/images/thumb/4/48/Heavy_emblem_RED.png/120px-Heavy_emblem_RED.png?t=20130809194223",
+                    "https://wiki.teamfortress.com/w/images/thumb/c/cf/Engineer_emblem_RED.png/120px-Engineer_emblem_RED.png?t=20130809194106",
+                    "https://wiki.teamfortress.com/w/images/thumb/1/11/Medic_emblem_RED.png/120px-Medic_emblem_RED.png?t=20130809194339",
+                    "https://wiki.teamfortress.com/w/images/thumb/f/fb/Sniper_emblem_RED.png/120px-Sniper_emblem_RED.png?t=20130809194809",
+                    "https://wiki.teamfortress.com/w/images/thumb/9/95/Spy_emblem_RED.png/120px-Spy_emblem_RED.png?t=20130809195027"
+                    ]
+
+var ScoutPrimaryMax = 6;
+var ScoutSecondaryMax = 7;
+var ScoutTertiaryMax = 8;
+var ScoutPrimary = ["Scattergun", "Force-A-Nature", "Shortstop", "Soda Popper", "Baby Face's Blaster", "Back Scatter"];
+var ScoutSecondary = ["Pistol", "Winger", "Pretty Boy's Pocket Pistol", "Flying Guillotine", "Bonk! Atomic Punch", "Crit-a-Cola", "Mad Milk"];
+var ScoutTertiary = ["Bat", "Sandman", "Candy Cane", "Boston Basher", "Sun-on-a-Stick", "Fan O War", "Atomizer", "Wrap Assassin"];
+var ScoutQuaternary = [];
+
+var SoldierPrimaryMax = 9;
+var SoldierSecondaryMax = 10;
+var SoldierTertiaryMax = 7;
+var SoldierPrimary = ["Rocket Launcher", "Original", "Direct Hit", "Black Box", "Rocket Jumper", "Liberty Launcher", "Cow Mangler 5000", "Beggar's Bazooka", "Air Strike"];
+var SoldierSecondary = ["Shotgun", "Reserve Shooter", "Buff Banner", "Gunboats", "Battalion's Backup", "Concheror", "Mantreads", "Righteous Bison", "B.A.S.E. Jumper", "Panic Attack"];
+var SoldierTertiary = ["Shovel", "Equalizer", "Pain Train", "Half-Zatoichi", "Disciplinary Action", "Market Gardener", "Escape Plan"];
+var SoldierQuaternary = [];
+
+var PyroPrimaryMax = 4;
+var PyroSecondaryMax = 7;
+var PyroTertiaryMax = 8;
+var PyroPrimary = ["Flame Thrower", "Backburner", "Degreaser", "Phlogistinator"];
+var PyroSecondary = ["Shotgun", "Reserve Shooter", "Flare Gun", "Detonator", "Manmelter", "Scorch Shot", "Panic Attack"];
+var PyroTertiary = ["Fire Axe", "Axtinguisher", "Homewrecker", "Powerjack", "Back Scratcher", "Sharpened Volcano Fragment", "Third Degree", "Neon Annihilator"];
+var PyroQuaternary = [];
+
+var DemoPrimaryMax = 6;
+var DemoSecondaryMax = 7;
+var DemoTertiaryMax = 8;
+var DemoPrimary = ["Grenade Launcher", "Loch-n-Load", "Ali Baba's Wee Booties", "Loose Cannon", "B.A.S.E. Jumper", "Iron Bomber"];
+var DemoSecondary = ["Stickybomb Launcher", "Scottish Resistance", "Chargin' Targe", "Sticky Jumper", "Splendid Screen", "Tide Turner", "Quickiebomb Launcher"];
+var DemoTertiary = ["Bottle", "Eyelander", "Scotsman's Skullcutter", "Pain Train", "Ullapool Caber", "Claidheamh Mòr", "Half-Zatoichi", "Persian Persuader"];
+var DemoQuaternary = [];
+
+var HeavyPrimaryMax = 5;
+var HeavySecondaryMax = 6;
+var HeavyTertiaryMax = 7;
+var HeavyPrimary = ["Minigun", "Natascha", "Brass Beast", "Tomislav", "Huo-Long Heater"];
+var HeavySecondary = ["Shotgun", "Family Business", "Sandvich", "Dalokohs Bar", "Buffalo Steak Sandvich", "Panic Attack"];
+var HeavyTertiary = ["Fists", "Killing Gloves of Boxing", "Gloves of Running Urgently", "Warrior's Spirit", "Fists of Steel", "Eviction Notice", "Holiday Punch"];
+var HeavyQuaternary = [];
+
+var EngineerPrimaryMax = 6;
+var EngineerSecondaryMax = 3;
+var EngineerTertiaryMax = 5;
+var EngineerPrimary = ["Shotgun", "Frontier Justice", "Widowmaker", "Pomson 6000", "Rescue Ranger", "Panic Attack"];
+var EngineerSecondary = ["Pistol", "Wrangler", "Short Circuit"];
+var EngineerTertiary = ["Wrench", "Gunslinger", "Southern Hospitality", "Jag", "Eureka Effect"];
+var EngineerQuaternary = [];
+
+var MedicPrimaryMax = 4;
+var MedicSecondaryMax = 4;
+var MedicTertiaryMax = 5;
+var MedicPrimary = ["Syringe Gun", "Blutsauger", "Crusader's Crossbow", "Overdose"];
+var MedicSecondary = ["Medi Gun", "Kritzkrieg", "Quick-Fix", "Vaccinator"];
+var MedicTertiary = ["Bonesaw", "Ubersaw", "Vita-Saw", "Amputator", "Solemn Vow"];
+var MedicQuaternary = [];
+
+var SniperPrimaryMax = 7;
+var SniperSecondaryMax = 6;
+var SniperTertiaryMax = 4;
+var SniperPrimary = ["Sniper Rifle", "Huntsman", "Sydney Sleeper", "Bazaar Bargain", "Machina", "Hitman's Heatmaker", "Classic"];
+var SniperSecondary = ["Submachine Gun", "Cleaner's Carbine", "Jarate", "Razorback", "Darwin's Danger Shield", "Cozy Camper"];
+var SniperTertiary = ["Kukri", "Tribalman's Shiv", "Bushwacka", "Shahanshah"];
+var SniperQuaternary = [];
+
+var SpyPrimaryMax = 5;
+var SpySecondaryMax = 5;
+var SpyTertiaryMax = 3;
+var SpyQuaternaryMax = 2;
+var SpyPrimary = ["Revolver", "Ambassador", "L'Etranger", "Enforcer", "Diamondback"];
+var SpySecondary = ["Knife", "Your Eternal Reward", "Conniver's Kunai", "Big Earner", "Spy-Cicle"];
+var SpyTertiary = ["Invis Watch", "Cloak and Dagger", "Dead Ringer"];
+var SpyQuaternary = ["Sapper", "Red Tape Recorder"];
+
+var ScoutPrimaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/1/1b/Item_icon_Scattergun.png/100px-Item_icon_Scattergun.png?t=20120630234045",
+						"https://wiki.teamfortress.com/w/images/thumb/e/ed/Item_icon_Force-A-Nature.png/100px-Item_icon_Force-A-Nature.png?t=20120630232436",
+						"https://wiki.teamfortress.com/w/images/thumb/8/84/Item_icon_Shortstop.png/100px-Item_icon_Shortstop.png?t=20120630234226",
+						"https://wiki.teamfortress.com/w/images/thumb/f/f1/Item_icon_Soda_Popper.png/100px-Item_icon_Soda_Popper.png?t=20120630234309",
+						"https://wiki.teamfortress.com/w/images/thumb/e/e6/Item_icon_Baby_Face%27s_Blaster.png/100px-Item_icon_Baby_Face%27s_Blaster.png?t=20120630233443",
+						"https://wiki.teamfortress.com/w/images/thumb/1/11/Item_icon_Back_Scatter.png/100px-Item_icon_Back_Scatter.png?t=20140619231505"
+						];
+var ScoutSecondaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/5/52/Item_icon_Pistol.png/100px-Item_icon_Pistol.png?t=20120630233554",
+						"https://wiki.teamfortress.com/w/images/thumb/4/4e/Item_icon_Winger.png/100px-Item_icon_Winger.png?t=20120630234717",
+						"https://wiki.teamfortress.com/w/images/thumb/f/f6/Item_icon_Pretty_Boy%27s_Pocket_Pistol.png/100px-Item_icon_Pretty_Boy%27s_Pocket_Pistol.png?t=20120630233437",
+						"https://wiki.teamfortress.com/w/images/thumb/5/5a/Item_icon_Flying_Guillotine.png/100px-Item_icon_Flying_Guillotine.png?t=20120901170343",
+						"https://wiki.teamfortress.com/w/images/thumb/8/8f/Item_icon_Bonk%21_Atomic_Punch.png/100px-Item_icon_Bonk%21_Atomic_Punch.png?t=20120630232711",
+						"https://wiki.teamfortress.com/w/images/thumb/a/ae/Item_icon_Crit-a-Cola.png/100px-Item_icon_Crit-a-Cola.png?t=20120630232119",
+						"https://wiki.teamfortress.com/w/images/thumb/5/56/Item_icon_Mad_Milk.png/100px-Item_icon_Mad_Milk.png?t=20120630233316"
+						];
+var ScoutTertiaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/b/b5/Item_icon_Bat.png/100px-Item_icon_Bat.png?t=20120630231637",
+						"https://wiki.teamfortress.com/w/images/thumb/7/70/Item_icon_Sandman.png/100px-Item_icon_Sandman.png?t=20120630234727",
+						"https://wiki.teamfortress.com/w/images/thumb/0/05/Item_icon_Candy_Cane.png/100px-Item_icon_Candy_Cane.png?t=20120630232016",
+						"https://wiki.teamfortress.com/w/images/thumb/b/b5/Item_icon_Boston_Basher.png/100px-Item_icon_Boston_Basher.png?t=20120630231817",
+						"https://wiki.teamfortress.com/w/images/thumb/0/06/Item_icon_Sun-on-a-Stick.png/100px-Item_icon_Sun-on-a-Stick.png?t=20120630233913",
+						"https://wiki.teamfortress.com/w/images/thumb/f/f4/Item_icon_Fan_O%27War.png/100px-Item_icon_Fan_O%27War.png?t=20120630234211",
+						"https://wiki.teamfortress.com/w/images/thumb/2/29/Item_icon_Atomizer.png/100px-Item_icon_Atomizer.png?t=20120630231803",
+						"https://wiki.teamfortress.com/w/images/thumb/6/6b/Item_icon_Wrap_Assassin.png/100px-Item_icon_Wrap_Assassin.png?t=20120630234833"
+						];
+						
+var SoldierPrimaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/f/fe/Item_icon_Rocket_Launcher.png/100px-Item_icon_Rocket_Launcher.png?t=20120701011642",
+						"https://wiki.teamfortress.com/w/images/thumb/8/88/Item_icon_Original.png/100px-Item_icon_Original.png?t=20120630231726",
+						"https://wiki.teamfortress.com/w/images/thumb/e/e7/Item_icon_Direct_Hit.png/100px-Item_icon_Direct_Hit.png?t=20120630232419",
+						"https://wiki.teamfortress.com/w/images/thumb/d/d2/Item_icon_Black_Box.png/100px-Item_icon_Black_Box.png?t=20120630231735",
+						"https://wiki.teamfortress.com/w/images/thumb/5/53/Item_icon_Rocket_Jumper.png/100px-Item_icon_Rocket_Jumper.png?t=20120630233948",
+						"https://wiki.teamfortress.com/w/images/thumb/2/24/Item_icon_Liberty_Launcher.png/100px-Item_icon_Liberty_Launcher.png?t=20120630233232",
+						"https://wiki.teamfortress.com/w/images/thumb/4/46/Item_icon_Cow_Mangler_5000.png/100px-Item_icon_Cow_Mangler_5000.png?t=20120630232448",
+						"https://wiki.teamfortress.com/w/images/thumb/7/77/Item_icon_Beggar%27s_Bazooka.png/100px-Item_icon_Beggar%27s_Bazooka.png?t=20120630232654",
+						"https://wiki.teamfortress.com/w/images/thumb/f/f8/Item_icon_Air_Strike.png/100px-Item_icon_Air_Strike.png?t=20140619232951"
+						];
+var SoldierSecondaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/100px-Item_icon_Shotgun.png?t=20120701011707",
+						"https://wiki.teamfortress.com/w/images/thumb/3/34/Item_icon_Reserve_Shooter.png/100px-Item_icon_Reserve_Shooter.png?t=20120630233816",
+						"https://wiki.teamfortress.com/w/images/thumb/7/7c/Item_icon_Buff_Banner.png/100px-Item_icon_Buff_Banner.png?t=20120630231944",
+						"https://wiki.teamfortress.com/w/images/thumb/0/0c/Item_icon_Gunboats.png/100px-Item_icon_Gunboats.png?t=20120630233931",
+						"https://wiki.teamfortress.com/w/images/thumb/d/d8/Item_icon_Battalion%27s_Backup.png/100px-Item_icon_Battalion%27s_Backup.png?t=20120630231626",
+						"https://wiki.teamfortress.com/w/images/thumb/7/7e/Item_icon_Concheror.png/100px-Item_icon_Concheror.png?t=20120701005224",
+						"https://wiki.teamfortress.com/w/images/thumb/6/6a/Item_icon_Mantreads.png/100px-Item_icon_Mantreads.png?t=20120701010550",
+						"https://wiki.teamfortress.com/w/images/thumb/1/1d/Item_icon_Righteous_Bison.png/100px-Item_icon_Righteous_Bison.png?t=20120630232608",
+						"https://wiki.teamfortress.com/w/images/thumb/b/b2/Item_icon_B.A.S.E._Jumper.png/100px-Item_icon_B.A.S.E._Jumper.png?t=20140619135425",
+						"https://wiki.teamfortress.com/w/images/thumb/b/be/Item_icon_Panic_Attack.png/100px-Item_icon_Panic_Attack.png?t=20141223033047"
+						];
+var SoldierTertiaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/7/73/Item_icon_Shovel.png/100px-Item_icon_Shovel.png?t=20120701011720",
+						"https://wiki.teamfortress.com/w/images/thumb/b/ba/Item_icon_Equalizer.png/100px-Item_icon_Equalizer.png?t=20120630233530",
+						"https://wiki.teamfortress.com/w/images/thumb/4/4b/Item_icon_Pain_Train.png/100px-Item_icon_Pain_Train.png?t=20120630233420",
+						"https://wiki.teamfortress.com/w/images/thumb/a/a9/Item_icon_Half-Zatoichi.png/100px-Item_icon_Half-Zatoichi.png?t=20120630234146",
+						"https://wiki.teamfortress.com/w/images/thumb/c/cf/Item_icon_Disciplinary_Action.png/100px-Item_icon_Disciplinary_Action.png?t=20120630233844",
+						"https://wiki.teamfortress.com/w/images/thumb/a/ac/Item_icon_Market_Gardener.png/100px-Item_icon_Market_Gardener.png?t=20120630233340",
+						"https://wiki.teamfortress.com/w/images/thumb/0/0c/Item_icon_Escape_Plan.png/100px-Item_icon_Escape_Plan.png?t=20120630233518"
+						];
+
+var PyroPrimaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Flame_Thrower.png/100px-Item_icon_Flame_Thrower.png?t=20120630232905",
+						"https://wiki.teamfortress.com/w/images/thumb/5/5d/Item_icon_Backburner.png/100px-Item_icon_Backburner.png?t=20120630231549",
+						"https://wiki.teamfortress.com/w/images/thumb/9/94/Item_icon_Degreaser.png/100px-Item_icon_Degreaser.png?t=20120630232215",
+						"https://wiki.teamfortress.com/w/images/thumb/2/22/Item_icon_Phlogistinator.png/100px-Item_icon_Phlogistinator.png?t=20120630232522"
+						];
+var PyroSecondaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/100px-Item_icon_Shotgun.png?t=20120701011707",
+						"https://wiki.teamfortress.com/w/images/thumb/3/34/Item_icon_Reserve_Shooter.png/100px-Item_icon_Reserve_Shooter.png?t=20120630233816",
+						"https://wiki.teamfortress.com/w/images/thumb/7/7b/Item_icon_Flare_Gun.png/100px-Item_icon_Flare_Gun.png?t=20120630232923",
+						"https://wiki.teamfortress.com/w/images/thumb/5/53/Item_icon_Detonator.png/100px-Item_icon_Detonator.png?t=20120630232249",
+						"https://wiki.teamfortress.com/w/images/thumb/9/9d/Item_icon_Manmelter.png/100px-Item_icon_Manmelter.png?t=20120630232509",
+						"https://wiki.teamfortress.com/w/images/thumb/b/be/Item_icon_Scorch_Shot.png/100px-Item_icon_Scorch_Shot.png?t=20120630234116",
+						"https://wiki.teamfortress.com/w/images/thumb/b/be/Item_icon_Panic_Attack.png/100px-Item_icon_Panic_Attack.png?t=20141223033047"
+						];
+var PyroTertiaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/9/9f/Item_icon_Fire_Axe.png/100px-Item_icon_Fire_Axe.png?t=20120630232750",
+						"https://wiki.teamfortress.com/w/images/thumb/c/c9/Item_icon_Axtinguisher.png/100px-Item_icon_Axtinguisher.png?t=20120630231533",
+						"https://wiki.teamfortress.com/w/images/thumb/4/4a/Item_icon_Homewrecker.png/100px-Item_icon_Homewrecker.png?t=20120630234241",
+						"https://wiki.teamfortress.com/w/images/thumb/c/cf/Item_icon_Powerjack.png/100px-Item_icon_Powerjack.png?t=20120630233630",
+						"https://wiki.teamfortress.com/w/images/thumb/4/48/Item_icon_Back_Scratcher.png/100px-Item_icon_Back_Scratcher.png?t=20120630231558",
+						"https://wiki.teamfortress.com/w/images/thumb/a/ac/Item_icon_Sharpened_Volcano_Fragment.png/100px-Item_icon_Sharpened_Volcano_Fragment.png?t=20120630233858",
+						"https://wiki.teamfortress.com/w/images/thumb/9/91/Item_icon_Third_Degree.png/100px-Item_icon_Third_Degree.png?t=20120630232623",
+						"https://wiki.teamfortress.com/w/images/thumb/e/e9/Item_icon_Neon_Annihilator.png/100px-Item_icon_Neon_Annihilator.png?t=20120901161121"
+						];
+
+var DemoPrimaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/e/e6/Item_icon_Grenade_Launcher.png/100px-Item_icon_Grenade_Launcher.png?t=20120701011527",
+						"https://wiki.teamfortress.com/w/images/thumb/6/62/Item_icon_Loch-n-Load.png/100px-Item_icon_Loch-n-Load.png?t=20120630233246",
+						"https://wiki.teamfortress.com/w/images/thumb/a/a4/Item_icon_Ali_Baba%27s_Wee_Booties.png/100px-Item_icon_Ali_Baba%27s_Wee_Booties.png?t=20120630235003",
+						"https://wiki.teamfortress.com/w/images/thumb/7/70/Item_icon_Loose_Cannon.png/100px-Item_icon_Loose_Cannon.png?t=20130127114119",
+						"https://wiki.teamfortress.com/w/images/thumb/b/b2/Item_icon_B.A.S.E._Jumper.png/100px-Item_icon_B.A.S.E._Jumper.png?t=20140619135425",
+						"https://wiki.teamfortress.com/w/images/thumb/c/cd/Item_icon_Iron_Bomber.png/100px-Item_icon_Iron_Bomber.png?t=20141223033043"
+						];
+var DemoSecondaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/7/7c/Item_icon_Stickybomb_Launcher.png/100px-Item_icon_Stickybomb_Launcher.png?t=20120701011814",
+						"https://wiki.teamfortress.com/w/images/thumb/2/2c/Item_icon_Scottish_Resistance.png/100px-Item_icon_Scottish_Resistance.png?t=20120701011755",
+						"https://wiki.teamfortress.com/w/images/thumb/7/7a/Item_icon_Chargin%27_Targe.png/100px-Item_icon_Chargin%27_Targe.png?t=20120630234453",
+						"https://wiki.teamfortress.com/w/images/thumb/5/56/Item_icon_Sticky_Jumper.png/100px-Item_icon_Sticky_Jumper.png?t=20120630234415",
+						"https://wiki.teamfortress.com/w/images/thumb/c/c3/Item_icon_Splendid_Screen.png/100px-Item_icon_Splendid_Screen.png?t=20120630233508",
+						"https://wiki.teamfortress.com/w/images/thumb/c/cd/Item_icon_Tide_Turner.png/100px-Item_icon_Tide_Turner.png?t=20140619232128",
+						"https://wiki.teamfortress.com/w/images/thumb/f/f9/Item_icon_Quickiebomb_Launcher.png/100px-Item_icon_Quickiebomb_Launcher.png?t=20141223033047"
+						];
+var DemoTertiaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/b/b2/Item_icon_Bottle.png/100px-Item_icon_Bottle.png?t=20120701011442",
+						"https://wiki.teamfortress.com/w/images/thumb/9/94/Item_icon_Eyelander.png/100px-Item_icon_Eyelander.png?t=20120630232104",
+						"https://wiki.teamfortress.com/w/images/thumb/c/c6/Item_icon_Scotsman%27s_Skullcutter.png/100px-Item_icon_Scotsman%27s_Skullcutter.png?t=20120630231609",
+						"https://wiki.teamfortress.com/w/images/thumb/4/4b/Item_icon_Pain_Train.png/100px-Item_icon_Pain_Train.png?t=20120630233420",
+						"https://wiki.teamfortress.com/w/images/thumb/a/a5/Item_icon_Ullapool_Caber.png/100px-Item_icon_Ullapool_Caber.png?t=20120630232001",
+						"https://wiki.teamfortress.com/w/images/thumb/0/0f/Item_icon_Claidheamh_M%C3%B2r.png/100px-Item_icon_Claidheamh_M%C3%B2r.png?t=20120630232048",
+						"https://wiki.teamfortress.com/w/images/thumb/a/a9/Item_icon_Half-Zatoichi.png/100px-Item_icon_Half-Zatoichi.png?t=20120630234146",
+						"https://wiki.teamfortress.com/w/images/thumb/9/98/Item_icon_Persian_Persuader.png/100px-Item_icon_Persian_Persuader.png?t=20120630232234"
+						];
+						
+var HeavyPrimaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/a/a7/Item_icon_Minigun.png/100px-Item_icon_Minigun.png?t=20120701011604",
+						"https://wiki.teamfortress.com/w/images/thumb/c/cc/Item_icon_Natascha.png/100px-Item_icon_Natascha.png?t=20120630234804",
+						"https://wiki.teamfortress.com/w/images/thumb/6/64/Item_icon_Brass_Beast.png/100px-Item_icon_Brass_Beast.png?t=20120630232946",
+						"https://wiki.teamfortress.com/w/images/thumb/3/3e/Item_icon_Tomislav.png/100px-Item_icon_Tomislav.png?t=20120630234510",
+						"https://wiki.teamfortress.com/w/images/thumb/8/81/Item_icon_Huo-Long_Heater.png/100px-Item_icon_Huo-Long_Heater.png?t=20120902140225"
+						];
+var HeavySecondaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/100px-Item_icon_Shotgun.png?t=20120701011707",
+						"https://wiki.teamfortress.com/w/images/thumb/c/cd/Item_icon_Family_Business.png/100px-Item_icon_Family_Business.png?t=20120630233955",
+						"https://wiki.teamfortress.com/w/images/thumb/5/5e/Item_icon_Sandvich.png/100px-Item_icon_Sandvich.png?t=20120630234016",
+						"https://wiki.teamfortress.com/w/images/thumb/3/35/Item_icon_Dalokohs_Bar.png/100px-Item_icon_Dalokohs_Bar.png?t=20140821223628",
+						"https://wiki.teamfortress.com/w/images/thumb/6/62/Item_icon_Buffalo_Steak_Sandvich.png/100px-Item_icon_Buffalo_Steak_Sandvich.png?t=20120630231919",
+						"https://wiki.teamfortress.com/w/images/thumb/b/be/Item_icon_Panic_Attack.png/100px-Item_icon_Panic_Attack.png?t=20141223033047"
+						];
+var HeavyTertiaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/1/19/Item_icon_Fists.png/100px-Item_icon_Fists.png?t=20120701011228",
+						"https://wiki.teamfortress.com/w/images/thumb/f/f6/Item_icon_Killing_Gloves_of_Boxing.png/100px-Item_icon_Killing_Gloves_of_Boxing.png?t=20120630231845",
+						"https://wiki.teamfortress.com/w/images/thumb/4/4f/Item_icon_Gloves_of_Running_Urgently.png/100px-Item_icon_Gloves_of_Running_Urgently.png?t=20120630231906",
+						"https://wiki.teamfortress.com/w/images/thumb/8/87/Item_icon_Warrior%27s_Spirit.png/100px-Item_icon_Warrior%27s_Spirit.png?t=20120630231658",
+						"https://wiki.teamfortress.com/w/images/thumb/9/9c/Item_icon_Fists_of_Steel.png/100px-Item_icon_Fists_of_Steel.png?t=20120630232842",
+						"https://wiki.teamfortress.com/w/images/thumb/6/62/Item_icon_Eviction_Notice.png/100px-Item_icon_Eviction_Notice.png?t=20120630232730",
+						"https://wiki.teamfortress.com/w/images/thumb/5/54/Item_icon_Holiday_Punch.png/100px-Item_icon_Holiday_Punch.png?t=20120630234848"
+						];
+
+var EngineerPrimaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/5/5f/Item_icon_Shotgun.png/100px-Item_icon_Shotgun.png?t=20120701011707",
+						"https://wiki.teamfortress.com/w/images/thumb/2/26/Item_icon_Frontier_Justice.png/100px-Item_icon_Frontier_Justice.png?t=20120630232935",
+						"https://wiki.teamfortress.com/w/images/thumb/b/b8/Item_icon_Widowmaker.png/100px-Item_icon_Widowmaker.png?t=20120630232351",
+						"https://wiki.teamfortress.com/w/images/thumb/8/89/Item_icon_Pomson_6000.png/100px-Item_icon_Pomson_6000.png?t=20120630232550",
+						"https://wiki.teamfortress.com/w/images/thumb/2/29/Item_icon_Rescue_Ranger.png/100px-Item_icon_Rescue_Ranger.png?t=20130127113427",
+						"https://wiki.teamfortress.com/w/images/thumb/b/be/Item_icon_Panic_Attack.png/100px-Item_icon_Panic_Attack.png?t=20141223033047"
+						];
+var EngineerSecondaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/5/52/Item_icon_Pistol.png/100px-Item_icon_Pistol.png?t=20120630233554",
+						"https://wiki.teamfortress.com/w/images/thumb/c/ce/Item_icon_Wrangler.png/100px-Item_icon_Wrangler.png?t=20120630234749",
+						"https://wiki.teamfortress.com/w/images/thumb/3/36/Item_icon_Short_Circuit.png/100px-Item_icon_Short_Circuit.png?t=20120630232307"
+						];
+var EngineerTertiaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/7/7d/Item_icon_Wrench.png/100px-Item_icon_Wrench.png?t=20120701011844",
+						"https://wiki.teamfortress.com/w/images/thumb/c/ca/Item_icon_Gunslinger.png/100px-Item_icon_Gunslinger.png?t=20120701001211",
+						"https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Southern_Hospitality.png/100px-Item_icon_Southern_Hospitality.png?t=20120630234323",
+						"https://wiki.teamfortress.com/w/images/thumb/4/49/Item_icon_Jag.png/100px-Item_icon_Jag.png?t=20120630233127",
+						"https://wiki.teamfortress.com/w/images/thumb/c/cf/Item_icon_Eureka_Effect.png/100px-Item_icon_Eureka_Effect.png?t=20120630232642"
+						];
+						
+var MedicPrimaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/c/c4/Item_icon_Syringe_Gun.png/100px-Item_icon_Syringe_Gun.png?t=20120701011833",
+						"https://wiki.teamfortress.com/w/images/thumb/1/13/Item_icon_Blutsauger.png/100px-Item_icon_Blutsauger.png?t=20120630233201",
+						"https://wiki.teamfortress.com/w/images/thumb/9/9c/Item_icon_Crusader%27s_Crossbow.png/100px-Item_icon_Crusader%27s_Crossbow.png?t=20120630232150",
+						"https://wiki.teamfortress.com/w/images/thumb/f/fe/Item_icon_Overdose.png/100px-Item_icon_Overdose.png?t=20120630233714"
+						];
+var MedicSecondaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/4/4a/Item_icon_Medi_Gun.png/100px-Item_icon_Medi_Gun.png?t=20120630233351",
+						"https://wiki.teamfortress.com/w/images/thumb/8/85/Item_icon_Kritzkrieg.png/100px-Item_icon_Kritzkrieg.png?t=20120630233409",
+						"https://wiki.teamfortress.com/w/images/thumb/5/50/Item_icon_Quick-Fix.png/100px-Item_icon_Quick-Fix.png?t=20120630233648",
+						"https://wiki.teamfortress.com/w/images/thumb/9/9d/Item_icon_Vaccinator.png/100px-Item_icon_Vaccinator.png?t=20130127150154"
+						];
+var MedicTertiaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/8/8d/Item_icon_Bonesaw.png/100px-Item_icon_Bonesaw.png?t=20120630231752",
+						"https://wiki.teamfortress.com/w/images/thumb/0/04/Item_icon_Ubersaw.png/100px-Item_icon_Ubersaw.png?t=20120630234637",
+						"https://wiki.teamfortress.com/w/images/thumb/7/70/Item_icon_Vita-Saw.png/100px-Item_icon_Vita-Saw.png?t=20120630234624",
+						"https://wiki.teamfortress.com/w/images/thumb/a/ab/Item_icon_Amputator.png/100px-Item_icon_Amputator.png?t=20120630231515",
+						"https://wiki.teamfortress.com/w/images/thumb/d/db/Item_icon_Solemn_Vow.png/100px-Item_icon_Solemn_Vow.png?t=20120630233033"
+						];
+						
+var SniperPrimaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/a/a1/Item_icon_Sniper_Rifle.png/100px-Item_icon_Sniper_Rifle.png?t=20120701011740",
+						"https://wiki.teamfortress.com/w/images/thumb/f/f8/Item_icon_Huntsman.png/100px-Item_icon_Huntsman.png?t=20120630231833",
+						"https://wiki.teamfortress.com/w/images/thumb/6/6a/Item_icon_Sydney_Sleeper.png/100px-Item_icon_Sydney_Sleeper.png?t=20120630232159",
+						"https://wiki.teamfortress.com/w/images/thumb/f/f4/Item_icon_Bazaar_Bargain.png/100px-Item_icon_Bazaar_Bargain.png?t=20120630231646",
+						"https://wiki.teamfortress.com/w/images/thumb/a/ae/Item_icon_Machina.png/100px-Item_icon_Machina.png?t=20120630232359",
+						"https://wiki.teamfortress.com/w/images/thumb/1/18/Item_icon_Hitman%27s_Heatmaker.png/100px-Item_icon_Hitman%27s_Heatmaker.png?t=20120630233721",
+						"https://wiki.teamfortress.com/w/images/thumb/7/73/Item_icon_Classic.png/100px-Item_icon_Classic.png?t=20140619232552"
+						];
+var SniperSecondaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/5/50/Item_icon_SMG.png/100px-Item_icon_SMG.png?t=20120701011726",
+						"https://wiki.teamfortress.com/w/images/thumb/6/64/Item_icon_Cleaner%27s_Carbine.png/100px-Item_icon_Cleaner%27s_Carbine.png?t=20120630233736",
+						"https://wiki.teamfortress.com/w/images/thumb/b/b3/Item_icon_Jarate.png/100px-Item_icon_Jarate.png?t=20120701011133",
+						"https://wiki.teamfortress.com/w/images/thumb/0/0f/Item_icon_Razorback.png/100px-Item_icon_Razorback.png?t=20120701003219",
+						"https://wiki.teamfortress.com/w/images/thumb/4/44/Item_icon_Darwin%27s_Danger_Shield.png/100px-Item_icon_Darwin%27s_Danger_Shield.png?t=20120630231406",
+						"https://wiki.teamfortress.com/w/images/thumb/0/01/Item_icon_Cozy_Camper.png/100px-Item_icon_Cozy_Camper.png?t=20120701012345"
+						];
+var SniperTertiaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/e/ea/Item_icon_Kukri.png/100px-Item_icon_Kukri.png?t=20120701011551",
+						"https://wiki.teamfortress.com/w/images/thumb/5/55/Item_icon_Tribalman%27s_Shiv.png/100px-Item_icon_Tribalman%27s_Shiv.png?t=20120630234730",
+						"https://wiki.teamfortress.com/w/images/thumb/4/46/Item_icon_Bushwacka.png/100px-Item_icon_Bushwacka.png?t=20120630232131",
+						"https://wiki.teamfortress.com/w/images/thumb/8/8d/Item_icon_Shahanshah.png/100px-Item_icon_Shahanshah.png?t=20120630234059"
+						];
+				
+var SpyPrimaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/1/1f/Item_icon_Revolver.png/100px-Item_icon_Revolver.png?t=20120701011631",
+						"https://wiki.teamfortress.com/w/images/thumb/e/ec/Item_icon_Ambassador.png/100px-Item_icon_Ambassador.png?t=20120630231453",
+						"https://wiki.teamfortress.com/w/images/thumb/b/b1/Item_icon_L%27Etranger.png/100px-Item_icon_L%27Etranger.png?t=20120630233218",
+						"https://wiki.teamfortress.com/w/images/thumb/b/b6/Item_icon_Enforcer.png/100px-Item_icon_Enforcer.png?t=20120630234301",
+						"https://wiki.teamfortress.com/w/images/thumb/b/b4/Item_icon_Diamondback.png/100px-Item_icon_Diamondback.png?t=20120630232336"
+						];
+var SpySecondaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/5/57/Item_icon_Knife.png/100px-Item_icon_Knife.png?t=20120701011540",
+						"https://wiki.teamfortress.com/w/images/thumb/d/d3/Item_icon_Your_Eternal_Reward.png/100px-Item_icon_Your_Eternal_Reward.png?t=20120630232723",
+						"https://wiki.teamfortress.com/w/images/thumb/0/02/Item_icon_Conniver%27s_Kunai.png/100px-Item_icon_Conniver%27s_Kunai.png?t=20120630234153",
+						"https://wiki.teamfortress.com/w/images/thumb/c/c9/Item_icon_Big_Earner.png/100px-Item_icon_Big_Earner.png?t=20120630234435",
+						"https://wiki.teamfortress.com/w/images/thumb/a/a3/Item_icon_Spy-cicle.png/100px-Item_icon_Spy-cicle.png?t=20120630234815"
+						];
+var SpyTertiaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/7/7c/Item_icon_Invis_Watch.png/100px-Item_icon_Invis_Watch.png?t=20120630234343",
+						"https://wiki.teamfortress.com/w/images/thumb/0/00/Item_icon_Cloak_and_Dagger.png/100px-Item_icon_Cloak_and_Dagger.png?t=20120630233141",
+						"https://wiki.teamfortress.com/w/images/thumb/b/b7/Item_icon_Dead_Ringer.png/100px-Item_icon_Dead_Ringer.png?t=20120630233616"
+						];
+						
+var SpyQuaternaryPic = [
+						"https://wiki.teamfortress.com/w/images/thumb/6/6c/Item_icon_Sapper.png/100px-Item_icon_Sapper.png?t=20120701011656",
+						"https://wiki.teamfortress.com/w/images/thumb/7/7d/Item_icon_Red-Tape_Recorder.png/100px-Item_icon_Red-Tape_Recorder.png?t=20120901171111"
+						];
+
+var primaryNumber = 0;
+var secondaryNumber = 0;
+var tertiaryNumber = 0;
+var quaternaryNumber = 0;
+
+
+function getRandomNumber(max)
+{
+    return Math.floor((Math.random() * (0 - max) + max));
+}
+
+
+function startRandom()
+{
+    var tf2ClassNumber = getRandomNumber(9);
+    tf2SelectedClass = tf2Classes[tf2ClassNumber]
+    primaryNumber = getRandomNumber(eval(tf2SelectedClass+"PrimaryMax"));
+    secondaryNumber = getRandomNumber(eval(tf2SelectedClass+"SecondaryMax"));
+    tertiaryNumber = getRandomNumber(eval(tf2SelectedClass+"TertiaryMax"));
+    quaternaryNumber = getRandomNumber(2);
+    
+    if(tf2SelectedClass == "Spy"){
+        //% document.getElementById("class").innerHTML = "Class = " + tf2SelectedClass;
+        document.getElementById("classimg").src = classEmblems[tf2ClassNumber];
+        //% document.getElementById("pweapon").innerHTML = "Primary = " + eval(tf2SelectedClass+"Primary"+"["+primaryNumber+"]");
+        //% document.getElementById("sweapon").innerHTML = "Watch = " + eval(tf2SelectedClass+"Tertiary"+"["+tertiaryNumber+"]");
+        //% document.getElementById("tweapon").innerHTML = "Knife = " + eval(tf2SelectedClass+"Secondary"+"["+secondaryNumber+"]");
+        //% document.getElementById("qweapon").innerHTML = "Sapper = " + eval(tf2SelectedClass+"Quaternary"+"["+quaternaryNumber+"]");
+        document.getElementById("pweaponimg").src = eval(tf2SelectedClass+"PrimaryPic"+"["+primaryNumber+"]");
+        document.getElementById("sweaponimg").src = eval(tf2SelectedClass+"SecondaryPic"+"["+secondaryNumber+"]");
+        document.getElementById("tweaponimg").src = eval(tf2SelectedClass+"TertiaryPic"+"["+tertiaryNumber+"]");
+        document.getElementById("qweaponimg").src = eval(tf2SelectedClass+"QuaternaryPic"+"["+quaternaryNumber+"]");
+    }
+    else{
+    //% document.getElementById("class").innerHTML = "Class = " + tf2SelectedClass + " ";
+    document.getElementById("classimg").src = classEmblems[tf2ClassNumber];
+    //% document.getElementById("pweapon").innerHTML = "Primary = " + eval(tf2SelectedClass+"Primary"+"["+primaryNumber+"]");
+    //% document.getElementById("sweapon").innerHTML = "Secondary = " + eval(tf2SelectedClass+"Secondary"+"["+secondaryNumber+"]");
+    //% document.getElementById("tweapon").innerHTML = "Melee = " + eval(tf2SelectedClass+"Tertiary"+"["+tertiaryNumber+"]");
+    //% document.getElementById("qweapon").innerHTML = "";
+    document.getElementById("pweaponimg").src = eval(tf2SelectedClass+"PrimaryPic"+"["+primaryNumber+"]");
+    document.getElementById("sweaponimg").src = eval(tf2SelectedClass+"SecondaryPic"+"["+secondaryNumber+"]");
+    document.getElementById("tweaponimg").src = eval(tf2SelectedClass+"TertiaryPic"+"["+tertiaryNumber+"]");
+    document.getElementById("qweaponimg").src = "";
+    }
+}
+</script>
+</br></br></br></br>
+<footer>Random TF2 Loadouts v0.1.0 (<a href="http://steamcommunity.com/id/adoubleylmao/">My Steam</a>)</footer>
+</body>
+</html>
