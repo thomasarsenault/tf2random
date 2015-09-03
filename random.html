@@ -1,14 +1,35 @@
 <!DOCTYPE html>
+<!--
+Team Fortress 2 is a game which revolves around first person, team based combat. There are 9 classes. Each class has a primary, secondary and melee slot (and one class has a fourth slot) with many different weapons for each. This project gives a random weapon for each slot.
+
+Used by clicking the button at the top, then changing your in-game loadout to the results.
+
+Javascript & HTML
+
+This is a beginner project and the CSS is very bad
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Everything with a <!--% or //% before it is commented out because I decided not to use the text names of the weapons in the results, and instead I solely used the pictures
+-->
 <html>
     <title>TF2 Randomizer</title>
 <head>
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
+<!--Displays a random loadout as soon as the page is loaded by calling the startRandom() method-->
+
 <body onload="startRandom()">
 <div class="main">
+<!--A large red bar at the top of the screen which gives a new random loadout when clicked
+The 'onselectstart="return false"' is so that the text can not be highlighted and makes it more like a button
+TODO: Find a better way to make a button-->
 <h1 id="titletext" onclick="startRandom()" onselectstart="return false">New Random Loadout</h1>
 
-<!--<p id="class"></p></br>-->
+<!--%<p id="class"></p></br>-->
+<!--This is the spot where the random loadout is displayed
+I am attempting to add a feature where there is not only one loadout, but instead many loadouts in a list which
+you can add to with the top button, or remove/save with the buttons on the right-->
 <div id="newrandom">
     <img id="classimg" src="" width="75" height="75">
     <img id="pweaponimg" src="">
@@ -19,15 +40,19 @@
 <div id="save" onselectstart="return false"><h3>Save</h3></div>
 </div>
 </br>
-<!--<p id="pweapon"></p>-->
-<!--<p id="sweapon"></p>-->
-<!--<p id="tweapon"></p>-->
-<!--<p id="qweapon"></p>-->
+<!--%
+<p id="pweapon"></p>
+<p id="sweapon"></p>
+<p id="tweapon"></p>
+<p id="qweapon"></p>
+-->
 </div>
 </div>
 
 <script>
+//this changes the class to scout by default (it changes when the startRandom() method is called afterwards)
 var tf2SelectedClass = 1;
+//array of the nine classes and the emblems, or symbols, of each one taken off of the TF2 Wiki
 var tf2Classes = ["Scout", "Soldier", "Pyro", "Demoman", "Heavy", "Engineer", "Medic", "Sniper", "Spy"];
 var classEmblems = [
                     "https://wiki.teamfortress.com/w/images/thumb/0/0a/Scout_emblem_RED.png/120px-Scout_emblem_RED.png?t=20130809194644",
@@ -41,6 +66,9 @@ var classEmblems = [
                     "https://wiki.teamfortress.com/w/images/thumb/9/95/Spy_emblem_RED.png/120px-Spy_emblem_RED.png?t=20130809195027"
                     ]
 
+//the following 70 or so lines are information about each class such as the number of Primary weapons
+//ex. the scout has 7 primary weapons, so ScoutPrimaryMax is 6
+//all of the weapons are listed in arrays, but the only one with four weapons is the "Spy", so ScoutQuaternary, SoldierQuaternary, etc is left blank
 var ScoutPrimaryMax = 6;
 var ScoutSecondaryMax = 7;
 var ScoutTertiaryMax = 8;
@@ -114,6 +142,7 @@ var SpySecondary = ["Knife", "Your Eternal Reward", "Conniver's Kunai", "Big Ear
 var SpyTertiary = ["Invis Watch", "Cloak and Dagger", "Dead Ringer"];
 var SpyQuaternary = ["Sapper", "Red Tape Recorder"];
 
+//here are the arrays storing the pictures of the weapons, found on the tf2 wiki
 var ScoutPrimaryPic = [
 						"https://wiki.teamfortress.com/w/images/thumb/1/1b/Item_icon_Scattergun.png/100px-Item_icon_Scattergun.png?t=20120630234045",
 						"https://wiki.teamfortress.com/w/images/thumb/e/ed/Item_icon_Force-A-Nature.png/100px-Item_icon_Force-A-Nature.png?t=20120630232436",
@@ -344,12 +373,13 @@ var SpyQuaternaryPic = [
 						"https://wiki.teamfortress.com/w/images/thumb/7/7d/Item_icon_Red-Tape_Recorder.png/100px-Item_icon_Red-Tape_Recorder.png?t=20120901171111"
 						];
 
+//declaring these variables which are assigned values in startRandom() using getRandomNumber()
 var primaryNumber = 0;
 var secondaryNumber = 0;
 var tertiaryNumber = 0;
 var quaternaryNumber = 0;
 
-
+//this function retrieves a random number between the min and max using a formula I found on stack exchange
 function getRandomNumber(max)
 {
     return Math.floor((Math.random() * (0 - max) + max));
@@ -358,13 +388,18 @@ function getRandomNumber(max)
 
 function startRandom()
 {
-    var tf2ClassNumber = getRandomNumber(9);
-    tf2SelectedClass = tf2Classes[tf2ClassNumber]
+
+	//this gets a random class 
+    tf2SelectedClass = tf2Classes[getRandomNumber(9)];
+	//these lines give a random value to the variable, which decides which weapon for each slot will be chosen
     primaryNumber = getRandomNumber(eval(tf2SelectedClass+"PrimaryMax"));
     secondaryNumber = getRandomNumber(eval(tf2SelectedClass+"SecondaryMax"));
     tertiaryNumber = getRandomNumber(eval(tf2SelectedClass+"TertiaryMax"));
+	//the only class using this line is the spy, so that's why I used a magic number (its very, very unlikely that it will change from 2)
     quaternaryNumber = getRandomNumber(2);
     
+	//these lines change the img sources to the appropriate randomly chosen weapon
+	//if the class is spy (9), then the picture for the fourth slot is added to the qweaponimg src
     if(tf2SelectedClass == "Spy"){
         //% document.getElementById("class").innerHTML = "Class = " + tf2SelectedClass;
         document.getElementById("classimg").src = classEmblems[tf2ClassNumber];
@@ -377,6 +412,7 @@ function startRandom()
         document.getElementById("tweaponimg").src = eval(tf2SelectedClass+"TertiaryPic"+"["+tertiaryNumber+"]");
         document.getElementById("qweaponimg").src = eval(tf2SelectedClass+"QuaternaryPic"+"["+quaternaryNumber+"]");
     }
+	//if its any other class, the qweaponimg is cleared
     else{
     //% document.getElementById("class").innerHTML = "Class = " + tf2SelectedClass + " ";
     document.getElementById("classimg").src = classEmblems[tf2ClassNumber];
@@ -392,6 +428,6 @@ function startRandom()
 }
 </script>
 </br></br></br></br>
-<footer>Random TF2 Loadouts v0.1.0 (<a href="http://steamcommunity.com/id/adoubleylmao/">My Steam</a>)</footer>
+<footer>Random TF2 Loadouts v0.1.1 <a href="http://steamcommunity.com/id/adoubleylmao/">My Steam</a> <a href="https://github.com/ThomasAR/tf2random">GitHub</a> </footer>
 </body>
 </html>
