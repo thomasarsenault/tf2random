@@ -1,6 +1,8 @@
 # tf2random
-Simple Javascript program to give you random Team Fortress 2 loadouts
+Team Fortress 2 is a game which revolves around first person, team based combat. There are 9 classes. Each class has a primary, secondary and melee slot (and one class has a fourth slot) with many different weapons for each. This project gives a random weapon for each slot.
 
-the CSS is very crude so pay no attention to that
+Used by clicking the button at the top, then changing your in-game loadout to the results.
 
-i have no comments on this code and i hate myself for it
+Javascript & HTML
+
+This is a beginner project and the CSS is very bad
