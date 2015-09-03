@@ -1,0 +1,11 @@
+TF2 Randomizer Changelog
+https://github.com/ThomasAR/tf2random
+
+v0.1.1
+09/03/2015
++ Updated footer
++ Added comments to the code
+
+v0.1.0
+08/31/2015
++ Added everything
